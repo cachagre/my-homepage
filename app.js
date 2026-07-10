@@ -14,7 +14,7 @@ const profile = {
   skills: ["408 基础", "读书笔记"],
   links: [
     { label: "GitHub", href: "https://github.com/cachagre", style: "primary" },
-    { label: "Email", href: "mailto:toyer726@gmail.com", style: "secondary" }
+    { label: "Email", href: "#", style: "secondary", copyText: "toyer726@gmail.com" }
   ],
   contacts: [
     
@@ -64,8 +64,10 @@ function renderProfile() {
 
   $("#heroActions").innerHTML = profile.links
     .map(
-      (link) =>
-        `<a class="${link.style === "secondary" ? "secondary" : ""}" href="${link.href}">${link.label}</a>`
+      (link) => {
+        const copyAttr = link.copyText ? ` data-copy-email="${link.copyText}"` : "";
+        return `<a class="${link.style === "secondary" ? "secondary" : ""}" href="${link.href}"${copyAttr}>${link.label}</a>`;
+      }
     )
     .join("");
 
@@ -148,8 +150,41 @@ function openNote(note) {
   $("#noteDialog").showModal();
 }
 
+function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+  return Promise.resolve();
+}
+
 function bindEvents() {
   $("#searchInput").addEventListener("input", renderNotes);
+
+  $("#heroActions").addEventListener("click", async (event) => {
+    const link = event.target.closest("[data-copy-email]");
+    if (!link) return;
+    event.preventDefault();
+
+    try {
+      await copyToClipboard(link.dataset.copyEmail);
+      const label = link.textContent;
+      link.textContent = "已复制";
+      setTimeout(() => {
+        link.textContent = label;
+      }, 1400);
+    } catch {
+      window.prompt("复制邮箱：", link.dataset.copyEmail);
+    }
+  });
 
   $("#categoryFilters").addEventListener("click", (event) => {
     const button = event.target.closest("button[data-category]");
