@@ -14,7 +14,7 @@ const profile = {
   skills: ["408 基础", "读书笔记"],
   links: [
     { label: "GitHub", href: "https://github.com/cachagre", style: "primary" },
-    { label: "Email", href: "toyer726@gmail.com", style: "secondary" }
+    { label: "Email", href: "mailto:toyer726@gmail.com", style: "secondary" }
   ],
   contacts: [
     
