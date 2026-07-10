@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>个人主页 | 读书笔记</title>
+    <meta
+      name="description"
+      content="个人简介、联系方式、项目展示和读书笔记。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="回到首页">
+        <img id="avatar" class="brand-avatar" src="" alt="" />
+        <span id="brandName">Your Name</span>
+      </a>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#about">简介</a>
+        <a href="#notes">读书笔记</a>
+        <a href="#posts">文章</a>
+        <a href="#contact">联系</a>
+      </nav>
+
+      <button id="themeToggle" class="icon-button" type="button" aria-label="切换主题">
+        ◐
+      </button>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Personal GitHub Pages</p>
+          <h1 id="heroTitle">把学习、项目和读书笔记放在一个安静的主页里。</h1>
+          <p id="heroSubtitle" class="hero-subtitle"></p>
+          <div id="heroActions" class="hero-actions"></div>
+        </div>
+
+        <aside class="status-panel" aria-label="当前状态">
+          <div>
+            <span class="metric-label">正在学习</span>
+            <strong id="currentFocus"></strong>
+          </div>
+          <div>
+            <span class="metric-label">最近阅读</span>
+            <strong id="recentBook"></strong>
+          </div>
+          <div>
+            <span class="metric-label">主页定位</span>
+            <strong id="sitePosition"></strong>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="section-band">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>简介</h2>
+        </div>
+        <div id="aboutText" class="prose"></div>
+        <div id="skillList" class="tag-row" aria-label="技能标签"></div>
+      </section>
+
+      <section id="notes" class="section-band">
+        <div class="section-heading">
+          <p class="eyebrow">Reading Notes</p>
+          <h2>读书笔记</h2>
+        </div>
+
+        <div class="toolbar" role="search">
+          <label class="search-box">
+            <span>搜索</span>
+            <input id="searchInput" type="search" placeholder="输入书名、作者、关键词" />
+          </label>
+          <div id="categoryFilters" class="segmented" aria-label="笔记分类"></div>
+        </div>
+
+        <div id="noteGrid" class="note-grid"></div>
+      </section>
+
+      <section id="posts" class="section-band">
+        <div class="section-heading">
+          <p class="eyebrow">Blog</p>
+          <h2>文章</h2>
+        </div>
+        <div id="postList" class="post-list"></div>
+      </section>
+
+      <section id="contact" class="section-band contact-band">
+        <div class="section-heading">
+          <p class="eyebrow">Contact</p>
+          <h2>联系方式</h2>
+        </div>
+        <div id="contactList" class="contact-list"></div>
+      </section>
+    </main>
+
+    <dialog id="noteDialog" class="note-dialog">
+      <button id="closeDialog" class="icon-button dialog-close" type="button" aria-label="关闭">
+        ×
+      </button>
+      <article id="dialogContent"></article>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
