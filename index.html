@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>个人主页 | 读书笔记</title>
+    <title>个人主页</title>
     <meta
       name="description"
-      content="个人简介、联系方式、项目展示和读书笔记。"
+      content="个人简介、联系方式和项目展示。"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -19,7 +19,6 @@
 
       <nav class="nav-links" aria-label="主导航">
         <a href="#about">简介</a>
-        <a href="#notes">读书笔记</a>
         <a href="#posts">文章</a>
         <a href="#contact">联系</a>
       </nav>
@@ -33,7 +32,7 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Personal GitHub Pages</p>
-          <h1 id="heroTitle">把学习、项目和读书笔记放在一个安静的主页里。</h1>
+          <h1 id="heroTitle">把学习和项目放在一个安静的主页里。</h1>
           <p id="heroSubtitle" class="hero-subtitle"></p>
           <div id="heroActions" class="hero-actions"></div>
         </div>
@@ -63,23 +62,6 @@
         <div id="skillList" class="tag-row" aria-label="技能标签"></div>
       </section>
 
-      <section id="notes" class="section-band">
-        <div class="section-heading">
-          <p class="eyebrow">Reading Notes</p>
-          <h2>读书笔记</h2>
-        </div>
-
-        <div class="toolbar" role="search">
-          <label class="search-box">
-            <span>搜索</span>
-            <input id="searchInput" type="search" placeholder="输入书名、作者、关键词" />
-          </label>
-          <div id="categoryFilters" class="segmented" aria-label="笔记分类"></div>
-        </div>
-
-        <div id="noteGrid" class="note-grid"></div>
-      </section>
-
       <section id="posts" class="section-band">
         <div class="section-heading">
           <p class="eyebrow">Blog</p>
@@ -97,13 +79,6 @@
       </section>
     </main>
 
-    <dialog id="noteDialog" class="note-dialog">
-      <button id="closeDialog" class="icon-button dialog-close" type="button" aria-label="关闭">
-        ×
-      </button>
-      <article id="dialogContent"></article>
-    </dialog>
-
-    <script src="./app.js?v=copy-email"></script>
+    <script src="./app.js?v=simple-home"></script>
   </body>
 </html>

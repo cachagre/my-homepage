@@ -11,7 +11,7 @@ const profile = {
     "记录自己",
     
   ],
-  skills: ["408 基础", "读书笔记"],
+  skills: ["408 基础", "项目实践"],
   links: [
     { label: "GitHub", href: "https://github.com/cachagre", style: "primary" },
     { label: "Email", href: "#", style: "secondary", copyText: "toyer726@gmail.com" }
@@ -21,19 +21,6 @@ const profile = {
   ]
 };
 
-const readingNotes = [
-  {
-    title: "",
-    author: "",
-    category: "",
-    date: "",
-    summary: "",
-    takeaways: [
-      
-    ]
-  }
-];
-
 const posts = [
   {
     title:"",
@@ -42,8 +29,6 @@ const posts = [
     href: ""
   }
 ];
-
-let activeCategory = "全部";
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -78,49 +63,6 @@ function renderProfile() {
     .join("");
 }
 
-function renderFilters() {
-  const categories = ["全部", ...new Set(readingNotes.map((note) => note.category))];
-  $("#categoryFilters").innerHTML = categories
-    .map(
-      (category) =>
-        `<button type="button" aria-pressed="${category === activeCategory}" data-category="${category}">${category}</button>`
-    )
-    .join("");
-}
-
-function getVisibleNotes() {
-  const keyword = $("#searchInput").value.trim().toLowerCase();
-  return readingNotes.filter((note) => {
-    const categoryMatched = activeCategory === "全部" || note.category === activeCategory;
-    const text = `${note.title} ${note.author} ${note.category} ${note.summary}`.toLowerCase();
-    return categoryMatched && text.includes(keyword);
-  });
-}
-
-function renderNotes() {
-  const notes = getVisibleNotes();
-  if (notes.length === 0) {
-    $("#noteGrid").innerHTML = `<div class="empty-state">没有找到匹配的读书笔记。</div>`;
-    return;
-  }
-
-  $("#noteGrid").innerHTML = notes
-    .map(
-      (note, index) => `
-        <button class="note-card" type="button" data-note="${index}">
-          <div class="note-meta">
-            <span>${note.category}</span>
-            <span>${note.date}</span>
-          </div>
-          <h3>${note.title}</h3>
-          <p>${note.author}</p>
-          <p>${note.summary}</p>
-        </button>
-      `
-    )
-    .join("");
-}
-
 function renderPosts() {
   $("#postList").innerHTML = posts
     .map(
@@ -136,18 +78,6 @@ function renderPosts() {
       `
     )
     .join("");
-}
-
-function openNote(note) {
-  $("#dialogContent").innerHTML = `
-    <p class="eyebrow">${note.category} / ${note.date}</p>
-    <h2>${note.title}</h2>
-    <p>${note.author}</p>
-    <p>${note.summary}</p>
-    <h3>我的收获</h3>
-    <ul>${note.takeaways.map((item) => `<li>${item}</li>`).join("")}</ul>
-  `;
-  $("#noteDialog").showModal();
 }
 
 function copyToClipboard(text) {
@@ -167,8 +97,6 @@ function copyToClipboard(text) {
 }
 
 function bindEvents() {
-  $("#searchInput").addEventListener("input", renderNotes);
-
   $("#heroActions").addEventListener("click", async (event) => {
     const link = event.target.closest("[data-copy-email]");
     if (!link) return;
@@ -186,22 +114,6 @@ function bindEvents() {
     }
   });
 
-  $("#categoryFilters").addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-category]");
-    if (!button) return;
-    activeCategory = button.dataset.category;
-    renderFilters();
-    renderNotes();
-  });
-
-  $("#noteGrid").addEventListener("click", (event) => {
-    const card = event.target.closest(".note-card");
-    if (!card) return;
-    openNote(getVisibleNotes()[Number(card.dataset.note)]);
-  });
-
-  $("#closeDialog").addEventListener("click", () => $("#noteDialog").close());
-
   $("#themeToggle").addEventListener("click", () => {
     const root = document.documentElement;
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
@@ -209,7 +121,5 @@ function bindEvents() {
 }
 
 renderProfile();
-renderFilters();
-renderNotes();
 renderPosts();
 bindEvents();
