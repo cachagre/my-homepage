@@ -21,6 +21,7 @@
         <a href="#about">简介</a>
         <a href="#posts">文章</a>
         <a href="#contact">联系</a>
+        <a href="#guestbook">留言</a>
       </nav>
 
       <button id="themeToggle" class="icon-button" type="button" aria-label="切换主题">
@@ -77,8 +78,21 @@
         </div>
         <div id="contactList" class="contact-list"></div>
       </section>
+
+      <section id="guestbook" class="section-band guestbook-band">
+        <div class="section-heading">
+          <p class="eyebrow">Guestbook</p>
+          <h2>留言板</h2>
+        </div>
+        <form id="messageForm" class="guestbook-form">
+          <input id="messageName" type="text" maxlength="20" placeholder="昵称" />
+          <textarea id="messageText" maxlength="180" rows="4" placeholder="写点什么"></textarea>
+          <button type="submit">留言</button>
+        </form>
+        <div id="messageList" class="message-list"></div>
+      </section>
     </main>
 
-    <script src="./app.js?v=simple-home"></script>
+    <script src="./app.js?v=guestbook"></script>
   </body>
 </html>
