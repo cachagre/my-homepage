@@ -405,76 +405,12 @@ main {
   padding-bottom: 96px;
 }
 
-.guestbook-form {
-  display: grid;
-  gap: 12px;
+.comments-panel {
   max-width: 680px;
-  margin-bottom: 18px;
-}
-
-.guestbook-form input,
-.guestbook-form textarea {
-  width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
-  color: var(--text);
-  outline: 0;
-}
-
-.guestbook-form input {
-  min-height: 44px;
-  padding: 0 12px;
-}
-
-.guestbook-form textarea {
-  resize: vertical;
-  padding: 12px;
-  line-height: 1.7;
-}
-
-.guestbook-form button {
-  justify-self: start;
-  min-height: 42px;
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  padding: 0 16px;
-  background: var(--accent);
-  color: var(--bg);
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.message-list {
-  display: grid;
-  gap: 12px;
-  max-width: 760px;
-}
-
-.message-item {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 16px;
-}
-
-.message-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.message-meta span {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.message-item p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.75;
+  padding: 8px 14px;
 }
 
 .note-dialog {

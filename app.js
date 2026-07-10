@@ -32,20 +32,9 @@ const posts = [
 ];
 
 const $ = (selector) => document.querySelector(selector);
-const guestbookKey = "cachagre-homepage-messages";
 
 function setText(selector, text) {
   $(selector).textContent = text;
-}
-
-function escapeHtml(value) {
-  return value.replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
 }
 
 function renderProfile() {
@@ -108,40 +97,6 @@ function copyToClipboard(text) {
   return Promise.resolve();
 }
 
-function getMessages() {
-  try {
-    return JSON.parse(localStorage.getItem(guestbookKey)) || [];
-  } catch {
-    return [];
-  }
-}
-
-function saveMessages(messages) {
-  localStorage.setItem(guestbookKey, JSON.stringify(messages));
-}
-
-function renderMessages() {
-  const messages = getMessages();
-  if (messages.length === 0) {
-    $("#messageList").innerHTML = `<div class="empty-state">还没有留言。</div>`;
-    return;
-  }
-
-  $("#messageList").innerHTML = messages
-    .map(
-      (message) => `
-        <article class="message-item">
-          <div class="message-meta">
-            <strong>${escapeHtml(message.name)}</strong>
-            <span>${escapeHtml(message.date)}</span>
-          </div>
-          <p>${escapeHtml(message.text)}</p>
-        </article>
-      `
-    )
-    .join("");
-}
-
 function bindEvents() {
   $("#heroActions").addEventListener("click", async (event) => {
     const link = event.target.closest("[data-copy-email]");
@@ -160,23 +115,6 @@ function bindEvents() {
     }
   });
 
-  $("#messageForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const name = $("#messageName").value.trim() || "访客";
-    const text = $("#messageText").value.trim();
-    if (!text) return;
-
-    const messages = getMessages();
-    messages.unshift({
-      name,
-      text,
-      date: new Date().toLocaleDateString("zh-CN")
-    });
-    saveMessages(messages.slice(0, 12));
-    event.target.reset();
-    renderMessages();
-  });
-
   $("#themeToggle").addEventListener("click", () => {
     const root = document.documentElement;
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
@@ -185,5 +123,4 @@ function bindEvents() {
 
 renderProfile();
 renderPosts();
-renderMessages();
 bindEvents();

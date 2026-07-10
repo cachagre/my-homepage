@@ -84,15 +84,20 @@
           <p class="eyebrow">Guestbook</p>
           <h2>留言板</h2>
         </div>
-        <form id="messageForm" class="guestbook-form">
-          <input id="messageName" type="text" maxlength="20" placeholder="昵称" />
-          <textarea id="messageText" maxlength="180" rows="4" placeholder="写点什么"></textarea>
-          <button type="submit">留言</button>
-        </form>
-        <div id="messageList" class="message-list"></div>
+        <div class="comments-panel">
+          <script
+            src="https://utteranc.es/client.js"
+            repo="cachagre/my-homepage"
+            issue-term="pathname"
+            label="guestbook"
+            theme="preferred-color-scheme"
+            crossorigin="anonymous"
+            async>
+          </script>
+        </div>
       </section>
     </main>
 
-    <script src="./app.js?v=guestbook"></script>
+    <script src="./app.js?v=public-guestbook"></script>
   </body>
 </html>
