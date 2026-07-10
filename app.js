@@ -1,6 +1,7 @@
 const profile = {
   name: "玩具拒玩",
   githubUser: "cachagre",
+  avatarUrl: "https://avatars.githubusercontent.com/u/151899699?s=160&v=20260711",
   headline: "每天清晨有多少双眼睛睁开,就有多少个世界",
   subtitle:
     "计算机科学与技术大二在读,目前在过暑假",
@@ -38,7 +39,7 @@ function setText(selector, text) {
 
 function renderProfile() {
   document.title = `${profile.name} | 个人主页`;
-  $("#avatar").src = `https://github.com/${profile.githubUser}.png`;
+  $("#avatar").src = profile.avatarUrl || `https://github.com/${profile.githubUser}.png`;
   $("#avatar").alt = `${profile.name} 的头像`;
   setText("#brandName", profile.name);
   setText("#heroTitle", profile.headline);
