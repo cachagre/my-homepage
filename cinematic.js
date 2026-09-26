@@ -1,7 +1,7 @@
 const profile = {
   name: "玩具拒玩",
   headline: "每天清晨有多少双眼睛睁开，就有多少个世界",
-  subtitle: "计算机科学与技术大二在读，目前在过暑假",
+  subtitle: "计算机科学与技术在读，记录学习、生活与偶尔的灵光。",
   currentFocus: "计算机基础 / 项目实践 / 英语",
   recentBook: "None",
   sitePosition: "为了考研学一点应试的内容",
