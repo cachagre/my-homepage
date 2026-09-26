@@ -89,7 +89,6 @@ body.intro-active { overflow: hidden; }
 .prologue-scenes,
 .prologue-scene,
 .prologue-scene img,
-.prologue-scene video,
 .prologue-shade,
 .prologue-shutter {
   position: absolute;
@@ -110,13 +109,12 @@ body.intro-active { overflow: hidden; }
   transform: scale(1);
 }
 
-.prologue-scene img,
-.prologue-scene video {
+.prologue-scene img {
   object-fit: cover;
   filter: saturate(0.82) contrast(1.06) brightness(0.82);
 }
 
-.prologue-scene[data-prologue-scene="greeting"] :is(img, video) { object-position: center; }
+.prologue-scene[data-prologue-scene="greeting"] img { object-position: center; }
 .prologue-scene[data-prologue-scene="memory"] img { object-position: center; }
 .prologue-scene[data-prologue-scene="shore"] img { object-position: 62% 38%; }
 
@@ -1071,7 +1069,7 @@ body.intro-active { overflow: hidden; }
     grid-template-columns: 1fr auto;
   }
   .prologue-topline > span:nth-child(2) { display: none; }
-  .prologue-scene[data-prologue-scene="greeting"] :is(img, video) { object-position: 82% center; }
+  .prologue-scene[data-prologue-scene="greeting"] img { object-position: 82% center; }
   .prologue-scene[data-prologue-scene="memory"] img { object-position: center; }
   .prologue-scene[data-prologue-scene="shore"] img { object-position: 66% center; }
   .prologue-shade {

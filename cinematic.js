@@ -179,21 +179,13 @@ function setupPrologue() {
   const askAgain = $("#askAgain");
   const enterHomepage = $("#enterHomepage");
   const sceneLabel = $("#prologueSceneLabel");
-  const greetingVideo = $("#prologueGreetingVideo");
-  const greetingImage = $("#prologueGreetingImage");
   const timelineSteps = $$(".prologue-timeline > span");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let typeRun = 0;
 
   if (reducedMotion) {
-    greetingVideo.hidden = true;
-    greetingImage.hidden = false;
-  }
-
-  function restartGreetingFilm() {
-    if (reducedMotion) return;
-    greetingVideo.currentTime = 0;
-    greetingVideo.play().catch(() => {});
+    const greetingImage = $("#prologueGreetingImage");
+    greetingImage.src = greetingImage.dataset.staticSrc;
   }
 
   function setScene(sceneName) {
@@ -264,7 +256,6 @@ function setupPrologue() {
 
   function closePrologue() {
     typeRun += 1;
-    greetingVideo.pause();
     line.classList.remove("is-typing");
     prologue.classList.add("is-leaving");
     setTimeout(() => {
@@ -277,7 +268,6 @@ function setupPrologue() {
 
   function openPrologue() {
     typeRun += 1;
-    restartGreetingFilm();
     prologue.hidden = false;
     prologue.classList.remove("is-leaving");
     document.body.classList.add("intro-active");
@@ -299,7 +289,6 @@ function setupPrologue() {
 
   requestAnimationFrame(() => {
     prologue.classList.add("is-ready");
-    restartGreetingFilm();
     showChoices();
   });
 }
