@@ -11,7 +11,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308100d'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23b8d67b' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23e7ff91'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="./cinematic.css" />
+    <link rel="stylesheet" href="./cinematic.css?v=living-1" />
   </head>
   <body class="intro-active">
     <div class="film-grain" aria-hidden="true"></div>
@@ -19,14 +19,21 @@
     <section id="prologue" class="prologue" aria-labelledby="prologueTitle">
       <h1 id="prologueTitle" class="visually-hidden">若叶睦的电影序章</h1>
 
-      <div class="prologue-scenes" aria-hidden="true">
+      <div class="prologue-scenes">
         <figure class="prologue-scene is-active" data-prologue-scene="greeting">
-          <img
-            id="prologueGreetingImage"
-            src="./assets/mutsumi-wave-smooth.webp?v=smooth-1"
-            data-static-src="./assets/mutsumi-greeting.webp"
-            alt=""
-          />
+          <div class="living-stage">
+            <div class="living-distance">
+              <img src="./assets/mutsumi-background.webp" alt="" width="1672" height="941" fetchpriority="high" />
+            </div>
+            <div class="living-person">
+              <div class="living-breath">
+                <img id="prologueGreetingImage" src="./assets/mutsumi-foreground.webp" alt="若叶睦站在暮色中的天台，望向你。" width="1672" height="941" fetchpriority="high" />
+                <button class="eye-touch eye-touch-left" type="button" aria-label="轻触若叶睦的眼睛，听她回应" title="轻触她的眼睛"></button>
+                <button class="eye-touch eye-touch-right" type="button" aria-label="轻触若叶睦的另一只眼睛，听她回应" title="轻触她的眼睛"></button>
+              </div>
+            </div>
+            <div class="living-light" aria-hidden="true"></div>
+          </div>
         </figure>
         <figure class="prologue-scene" data-prologue-scene="memory">
           <img src="./assets/mutsumi-eye.png" alt="" />
@@ -64,7 +71,7 @@
 
       <div class="prologue-timeline" aria-hidden="true">
         <span class="is-active"></span><span></span><span></span>
-        <small>00:00:08</small>
+        <small id="prologueTouchHint">轻触她的眼睛</small>
       </div>
       <div class="prologue-shutter" aria-hidden="true"></div>
     </section>
@@ -272,6 +279,6 @@
       </span>
     </footer>
 
-    <script src="./cinematic.js?v=cinematic-cut"></script>
+    <script src="./cinematic.js?v=living-1"></script>
   </body>
 </html>

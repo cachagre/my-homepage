@@ -181,17 +181,52 @@ function setupPrologue() {
   const sceneLabel = $("#prologueSceneLabel");
   const timelineSteps = $$(".prologue-timeline > span");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const greetingScene = $('[data-prologue-scene="greeting"]');
+  const touchHint = $("#prologueTouchHint");
+  const eyeButtons = $$(".eye-touch");
   let typeRun = 0;
+  let eyeReplyTimer;
+  let eyeReplyActive = false;
 
-  if (reducedMotion) {
-    const greetingImage = $("#prologueGreetingImage");
-    greetingImage.src = greetingImage.dataset.staticSrc;
+  function resetEyeReply() {
+    clearTimeout(eyeReplyTimer);
+    eyeReplyActive = false;
+    greetingScene.classList.remove("is-touched");
   }
 
+  function resetParallax() {
+    greetingScene.style.setProperty("--look-x", "0px");
+    greetingScene.style.setProperty("--look-y", "0px");
+  }
+
+  prologue.addEventListener("pointermove", (event) => {
+    if (reducedMotion || event.pointerType !== "mouse" || !greetingScene.classList.contains("is-active")) return;
+    const bounds = prologue.getBoundingClientRect();
+    greetingScene.style.setProperty("--look-x", `${(event.clientX / bounds.width - 0.5) * 12}px`);
+    greetingScene.style.setProperty("--look-y", `${(event.clientY / bounds.height - 0.5) * 8}px`);
+  });
+  prologue.addEventListener("pointerleave", resetParallax);
+  document.addEventListener("visibilitychange", () => {
+    prologue.classList.toggle("is-suspended", document.hidden);
+    if (document.hidden) resetParallax();
+  });
+
+  eyeButtons.forEach((button) => button.addEventListener("click", async () => {
+    if (eyeReplyActive || !greetingScene.classList.contains("is-active")) return;
+    eyeReplyActive = true;
+    greetingScene.classList.add("is-touched");
+    eyeReplyTimer = setTimeout(resetEyeReply, 1800);
+    const completed = await typeLine("……我看见你了。风会替我们翻过昨天，而明天，还可以慢慢写。");
+    if (completed && !prologue.hidden && branchActions.hidden) choices.hidden = false;
+  }));
+
   function setScene(sceneName) {
+    resetEyeReply();
     $$(".prologue-scene").forEach((scene) => {
       scene.classList.toggle("is-active", scene.dataset.prologueScene === sceneName);
     });
+    eyeButtons.forEach((button) => { button.disabled = sceneName !== "greeting"; });
+    touchHint.hidden = sceneName !== "greeting";
   }
 
   function setProgress(activeIndex) {
@@ -256,6 +291,8 @@ function setupPrologue() {
 
   function closePrologue() {
     typeRun += 1;
+    resetEyeReply();
+    resetParallax();
     line.classList.remove("is-typing");
     prologue.classList.add("is-leaving");
     setTimeout(() => {
