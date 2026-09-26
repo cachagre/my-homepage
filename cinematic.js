@@ -23,17 +23,17 @@ const posts = [
 const prologueBranches = {
   waiting: {
     scene: "greeting",
-    label: "SCENE 01 · WAITING",
+    label: "第一章 · 等待",
     reply: "……也许。这里很少有人来，所以，我记得每一个脚步声。"
   },
   archive: {
     scene: "memory",
-    label: "SCENE 02 · MEMORIES",
+    label: "第二章 · 回忆",
     reply: "一些没说完的话、被风吹乱的照片，还有那个人正在写下的生活。"
   },
   enter: {
     scene: "shore",
-    label: "SCENE 03 · BEGIN",
+    label: "第三章 · 启程",
     reply: "嗯。跟紧一点……影片要开始了。",
     direct: true
   }
@@ -229,7 +229,7 @@ function setupPrologue() {
     branchActions.hidden = true;
     askAgain.hidden = false;
     setScene("greeting");
-    sceneLabel.textContent = "SCENE 00 · HELLO";
+    sceneLabel.textContent = "序章 · 相遇";
     setProgress(0);
     const completed = await typeLine(prompt);
     if (completed && !prologue.hidden) choices.hidden = false;
