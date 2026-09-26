@@ -560,9 +560,9 @@ img { display: block; max-width: 100%; }
 
 .film-strip {
   display: grid;
-  grid-template-columns: 1.45fr 0.72fr 0.95fr;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 28px);
-  align-items: end;
+  align-items: start;
 }
 
 .film-card {
@@ -573,10 +573,16 @@ img { display: block; max-width: 100%; }
   background: #050806;
 }
 
-.film-card-wide { transform: translateY(-36px); }
+.film-card-wide { grid-column: span 6; transform: translateY(-36px); }
+.film-card-tall { grid-column: span 3; }
+.film-card-portrait { grid-column: span 3; }
+.film-card-night { grid-column: span 7; margin-top: 22px; }
+.film-card-sketches { grid-column: span 5; margin-top: 82px; }
 .film-card-wide img { aspect-ratio: 16 / 10; }
 .film-card-tall img { aspect-ratio: 3 / 4; }
 .film-card-portrait img { aspect-ratio: 4 / 5; }
+.film-card-night img { aspect-ratio: 1 / 1; }
+.film-card-sketches img { aspect-ratio: 4 / 5; }
 
 .film-card img {
   width: 100%;
@@ -588,6 +594,8 @@ img { display: block; max-width: 100%; }
 .film-card:hover img { filter: saturate(0.95) contrast(1.02) brightness(0.92); transform: scale(1.025); }
 .film-card-tall img { object-position: center 24%; }
 .film-card-portrait img { object-position: center top; }
+.film-card-night img { object-position: 62% 40%; }
+.film-card-sketches img { object-position: center 24%; }
 
 .perforations {
   position: absolute;
@@ -773,8 +781,14 @@ img { display: block; max-width: 100%; }
   .about-copy h2, .section-heading h2 { font-size: 43px; }
   .section-heading { display: grid; gap: 16px; }
   .film-strip { grid-template-columns: 1fr; gap: 20px; }
-  .film-card-wide { transform: none; }
+  .film-card-wide, .film-card-tall, .film-card-portrait, .film-card-night, .film-card-sketches {
+    grid-column: 1 / -1;
+    margin-top: 0;
+    transform: none;
+  }
   .film-card-wide img, .film-card-tall img, .film-card-portrait img { aspect-ratio: 4 / 3; }
+  .film-card-night img { aspect-ratio: 1 / 1; }
+  .film-card-sketches img { aspect-ratio: 4 / 5; }
   .film-card-tall img { object-position: center 28%; }
   .notes-section { padding-top: 90px; }
   .contact-scene { min-height: 76svh; }
