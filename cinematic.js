@@ -23,18 +23,15 @@ const posts = [
 const prologueBranches = {
   waiting: {
     scene: "greeting",
-    label: "第一章 · 空拍",
-    reply: "……那就好。这样谁也没有资格嫌弃谁。"
+    label: "第一章 · 空拍"
   },
   archive: {
     scene: "memory",
-    label: "第二章 · 跑题",
-    reply: "因为真正想说的话太难开口。于是大家绕了一圈，又回到了原点。"
+    label: "第二章 · 跑题"
   },
   enter: {
     scene: "shore",
     label: "第三章 · 乐队",
-    reply: "……嗯。可每次说完这句话，大家还是会问：下一次排练几点？",
     direct: true
   }
 };
@@ -264,7 +261,7 @@ function setupPrologue() {
     });
   }
 
-  async function showChoices(prompt = "晚上好。每一次挥手，都是向旧日作别，也是在向尚未命名的新生问好。") {
+  async function showChoices(prompt = "每一次挥手，都是向旧日作别，也是在向尚未命名的新生问好。") {
     choices.hidden = true;
     branchActions.hidden = true;
     askAgain.hidden = false;
@@ -275,15 +272,16 @@ function setupPrologue() {
     if (completed && !prologue.hidden) choices.hidden = false;
   }
 
-  async function selectBranch(branchName) {
+  function selectBranch(branchName) {
     const branch = prologueBranches[branchName];
     choices.hidden = true;
     branchActions.hidden = true;
     setScene(branch.scene);
     sceneLabel.textContent = branch.label;
     setProgress(branch.direct ? 2 : 1);
-    const completed = await typeLine(branch.reply);
-    if (!completed || prologue.hidden) return;
+    typeRun += 1;
+    line.textContent = "";
+    line.classList.remove("is-typing");
     askAgain.hidden = Boolean(branch.direct);
     branchActions.hidden = false;
     enterHomepage.focus({ preventScroll: true });
@@ -319,7 +317,7 @@ function setupPrologue() {
     if (button) selectBranch(button.dataset.prologueChoice);
   });
 
-  askAgain.addEventListener("click", () => showChoices("还想问什么？夜还很长。"));
+  askAgain.addEventListener("click", () => showChoices());
   enterHomepage.addEventListener("click", closePrologue);
   $("#skipPrologue").addEventListener("click", closePrologue);
   $("#replayIntro").addEventListener("click", openPrologue);
