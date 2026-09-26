@@ -229,7 +229,7 @@ function setupPrologue() {
     });
   }
 
-  async function showChoices(prompt = "晚上好。你来了……风有一点大，不过这里很安静。") {
+  async function showChoices(prompt = "晚上好。每一次挥手，都是向旧日作别，也是在向尚未命名的新生问好。") {
     choices.hidden = true;
     branchActions.hidden = true;
     askAgain.hidden = false;
