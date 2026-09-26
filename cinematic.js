@@ -183,6 +183,11 @@ function setupPrologue() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let typeRun = 0;
 
+  if (reducedMotion) {
+    const greetingImage = $("#prologueGreetingImage");
+    greetingImage.src = greetingImage.dataset.staticSrc;
+  }
+
   function setScene(sceneName) {
     $$(".prologue-scene").forEach((scene) => {
       scene.classList.toggle("is-active", scene.dataset.prologueScene === sceneName);
