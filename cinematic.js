@@ -23,18 +23,18 @@ const posts = [
 const prologueBranches = {
   waiting: {
     scene: "greeting",
-    label: "第一章 · 等待",
-    reply: "……也许。这里很少有人来，所以，我记得每一个脚步声。"
+    label: "第一章 · 空拍",
+    reply: "……那就好。这样谁也没有资格嫌弃谁。"
   },
   archive: {
     scene: "memory",
-    label: "第二章 · 回忆",
-    reply: "一些没说完的话、被风吹乱的照片，还有那个人正在写下的生活。"
+    label: "第二章 · 跑题",
+    reply: "因为真正想说的话太难开口。于是大家绕了一圈，又回到了原点。"
   },
   enter: {
     scene: "shore",
-    label: "第三章 · 启程",
-    reply: "嗯。跟紧一点……影片要开始了。",
+    label: "第三章 · 乐队",
+    reply: "……嗯。可每次说完这句话，大家还是会问：下一次排练几点？",
     direct: true
   }
 };
