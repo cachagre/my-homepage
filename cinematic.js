@@ -20,6 +20,25 @@ const posts = [
   { title: "", date: "", description: "", href: "" }
 ];
 
+const prologueBranches = {
+  waiting: {
+    scene: "greeting",
+    label: "SCENE 01 · WAITING",
+    reply: "……也许。这里很少有人来，所以，我记得每一个脚步声。"
+  },
+  archive: {
+    scene: "memory",
+    label: "SCENE 02 · MEMORIES",
+    reply: "一些没说完的话、被风吹乱的照片，还有那个人正在写下的生活。"
+  },
+  enter: {
+    scene: "shore",
+    label: "SCENE 03 · BEGIN",
+    reply: "嗯。跟紧一点……影片要开始了。",
+    direct: true
+  }
+};
+
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -152,6 +171,123 @@ function setupFilm() {
   updatePlayState();
 }
 
+function setupPrologue() {
+  const prologue = $("#prologue");
+  const line = $("#prologueLine");
+  const choices = $("#prologueChoices");
+  const branchActions = $("#prologueBranchActions");
+  const askAgain = $("#askAgain");
+  const enterHomepage = $("#enterHomepage");
+  const sceneLabel = $("#prologueSceneLabel");
+  const timelineSteps = $$(".prologue-timeline > span");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let typeRun = 0;
+
+  function setScene(sceneName) {
+    $$(".prologue-scene").forEach((scene) => {
+      scene.classList.toggle("is-active", scene.dataset.prologueScene === sceneName);
+    });
+  }
+
+  function setProgress(activeIndex) {
+    timelineSteps.forEach((step, index) => step.classList.toggle("is-active", index <= activeIndex));
+  }
+
+  function typeLine(text) {
+    const currentRun = ++typeRun;
+    line.textContent = "";
+    line.classList.add("is-typing");
+
+    if (reducedMotion) {
+      line.textContent = text;
+      line.classList.remove("is-typing");
+      return Promise.resolve(true);
+    }
+
+    return new Promise((resolve) => {
+      let index = 0;
+      function typeNext() {
+        if (currentRun !== typeRun) {
+          resolve(false);
+          return;
+        }
+        line.textContent = text.slice(0, index + 1);
+        index += 1;
+        if (index < text.length) {
+          setTimeout(typeNext, text[index - 1] === "…" ? 150 : 42);
+          return;
+        }
+        line.classList.remove("is-typing");
+        resolve(true);
+      }
+      typeNext();
+    });
+  }
+
+  async function showChoices(prompt = "晚上好。你来了……风有一点大，不过这里很安静。") {
+    choices.hidden = true;
+    branchActions.hidden = true;
+    askAgain.hidden = false;
+    setScene("greeting");
+    sceneLabel.textContent = "SCENE 00 · HELLO";
+    setProgress(0);
+    const completed = await typeLine(prompt);
+    if (completed && !prologue.hidden) choices.hidden = false;
+  }
+
+  async function selectBranch(branchName) {
+    const branch = prologueBranches[branchName];
+    choices.hidden = true;
+    branchActions.hidden = true;
+    setScene(branch.scene);
+    sceneLabel.textContent = branch.label;
+    setProgress(branch.direct ? 2 : 1);
+    const completed = await typeLine(branch.reply);
+    if (!completed || prologue.hidden) return;
+    askAgain.hidden = Boolean(branch.direct);
+    branchActions.hidden = false;
+    enterHomepage.focus({ preventScroll: true });
+  }
+
+  function closePrologue() {
+    typeRun += 1;
+    line.classList.remove("is-typing");
+    prologue.classList.add("is-leaving");
+    setTimeout(() => {
+      prologue.hidden = true;
+      prologue.classList.remove("is-ready", "is-leaving");
+      document.body.classList.remove("intro-active");
+      $(".cinematic-hero").focus?.({ preventScroll: true });
+    }, reducedMotion ? 40 : 920);
+  }
+
+  function openPrologue() {
+    typeRun += 1;
+    prologue.hidden = false;
+    prologue.classList.remove("is-leaving");
+    document.body.classList.add("intro-active");
+    requestAnimationFrame(() => {
+      prologue.classList.add("is-ready");
+      showChoices();
+    });
+  }
+
+  choices.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-prologue-choice]");
+    if (button) selectBranch(button.dataset.prologueChoice);
+  });
+
+  askAgain.addEventListener("click", () => showChoices("还想问什么？夜还很长。"));
+  enterHomepage.addEventListener("click", closePrologue);
+  $("#skipPrologue").addEventListener("click", closePrologue);
+  $("#replayIntro").addEventListener("click", openPrologue);
+
+  requestAnimationFrame(() => {
+    prologue.classList.add("is-ready");
+    showChoices();
+  });
+}
+
 function setupReveals() {
   const sections = $$(".reveal-section");
   if (!("IntersectionObserver" in window)) {
@@ -199,6 +335,7 @@ function setupInteractions() {
 
 renderProfile();
 renderPosts();
+setupPrologue();
 setupFilm();
 setupReveals();
 setupInteractions();

@@ -13,8 +13,56 @@
     />
     <link rel="stylesheet" href="./cinematic.css" />
   </head>
-  <body>
+  <body class="intro-active">
     <div class="film-grain" aria-hidden="true"></div>
+
+    <section id="prologue" class="prologue" aria-labelledby="prologueTitle">
+      <h1 id="prologueTitle" class="visually-hidden">若叶睦的电影序章</h1>
+
+      <div class="prologue-scenes" aria-hidden="true">
+        <figure class="prologue-scene is-active" data-prologue-scene="greeting">
+          <img src="./assets/mutsumi-greeting.webp" alt="" />
+        </figure>
+        <figure class="prologue-scene" data-prologue-scene="memory">
+          <img src="./assets/mutsumi-eye.png" alt="" />
+        </figure>
+        <figure class="prologue-scene" data-prologue-scene="shore">
+          <img src="./assets/mutsumi-night.jpg" alt="" />
+        </figure>
+      </div>
+      <div class="prologue-shade" aria-hidden="true"></div>
+
+      <div class="prologue-topline">
+        <span>PROLOGUE / ENCOUNTER</span>
+        <span id="prologueSceneLabel">SCENE 00 · HELLO</span>
+        <button id="skipPrologue" type="button">SKIP INTRO →</button>
+      </div>
+
+      <div class="prologue-dialogue">
+        <div class="speaker-label">
+          <span aria-hidden="true"></span>
+          <p>若叶睦 <small>WAKABA MUTSUMI</small></p>
+        </div>
+        <p id="prologueLine" class="prologue-line" aria-live="polite"></p>
+
+        <div id="prologueChoices" class="prologue-choices" hidden>
+          <button type="button" data-prologue-choice="waiting"><span>01</span>“你是在等我吗？”</button>
+          <button type="button" data-prologue-choice="archive"><span>02</span>“这里收藏了什么？”</button>
+          <button type="button" data-prologue-choice="enter"><span>03</span>“带我去看看吧。”</button>
+        </div>
+
+        <div id="prologueBranchActions" class="prologue-branch-actions" hidden>
+          <button id="askAgain" type="button">← 再问一句</button>
+          <button id="enterHomepage" class="enter-homepage" type="button">进入影片 <span>→</span></button>
+        </div>
+      </div>
+
+      <div class="prologue-timeline" aria-hidden="true">
+        <span class="is-active"></span><span></span><span></span>
+        <small>00:00:08</small>
+      </div>
+      <div class="prologue-shutter" aria-hidden="true"></div>
+    </section>
 
     <header class="site-header">
       <a class="brand" href="#home" aria-label="回到首页">
@@ -213,7 +261,10 @@
     <footer class="site-footer">
       <span>© <span id="year"></span> 玩具拒玩</span>
       <span>DIRECTED WITH QUIET LIGHT</span>
-      <a href="#home">BACK TO TOP ↑</a>
+      <span class="footer-actions">
+        <button id="replayIntro" type="button">REPLAY INTRO ↺</button>
+        <a href="#home">BACK TO TOP ↑</a>
+      </span>
     </footer>
 
     <script src="./cinematic.js?v=cinematic-cut"></script>
