@@ -1,0 +1,204 @@
+const profile = {
+  name: "玩具拒玩",
+  headline: "每天清晨有多少双眼睛睁开，就有多少个世界",
+  subtitle: "计算机科学与技术大二在读，目前在过暑假",
+  currentFocus: "计算机基础 / 项目实践 / 英语",
+  recentBook: "None",
+  sitePosition: "为了考研学一点应试的内容",
+  about: ["记录自己"],
+  skills: ["什么都不懂", "混吃等死", "装可爱真可爱"],
+  links: [
+    { label: "VIEW GITHUB", href: "https://github.com/cachagre" },
+    { label: "COPY EMAIL", href: "#", copyText: "toyer726@gmail.com" }
+  ],
+  contacts: [
+    { label: "GITHUB / CACHAGRE", href: "https://github.com/cachagre" }
+  ]
+};
+
+const posts = [
+  { title: "", date: "", description: "", href: "" }
+];
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+function setText(selector, text) {
+  const element = $(selector);
+  if (element) element.textContent = text;
+}
+
+function renderProfile() {
+  document.title = `${profile.name} | 个人主页`;
+  setText("#brandName", profile.name);
+  setText("#heroTitle", profile.headline);
+  setText("#heroSubtitle", profile.subtitle);
+  setText("#currentFocus", profile.currentFocus);
+  setText("#recentBook", profile.recentBook);
+  setText("#sitePosition", profile.sitePosition);
+  setText("#year", new Date().getFullYear());
+
+  $("#heroActions").innerHTML = profile.links
+    .map((link) => {
+      const copyAttr = link.copyText ? ` data-copy-email="${link.copyText}"` : "";
+      return `<a href="${link.href}"${copyAttr}>${link.label}</a>`;
+    })
+    .join("");
+
+  $("#aboutText").innerHTML = profile.about.map((line) => `<p>${line}</p>`).join("");
+  $("#skillList").innerHTML = profile.skills.map((skill) => `<span class="tag">${skill}</span>`).join("");
+  $("#contactList").innerHTML = profile.contacts
+    .map((contact) => `<a href="${contact.href}">${contact.label}</a>`)
+    .join("");
+}
+
+function renderPosts() {
+  const visiblePosts = posts.filter((post) => post.title.trim());
+  if (!visiblePosts.length) {
+    $("#postList").innerHTML = `
+      <div class="empty-state">
+        <strong>下一幕，尚未书写。</strong>
+        <span>文字会在合适的时候出现。</span>
+      </div>`;
+    return;
+  }
+
+  $("#postList").innerHTML = visiblePosts
+    .map((post) => `
+      <article class="post-item">
+        <div class="post-meta">${post.date}</div>
+        <div><h3>${post.title}</h3><p>${post.description}</p></div>
+        <a href="${post.href}">阅读 →</a>
+      </article>`)
+    .join("");
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+  return Promise.resolve();
+}
+
+function setupFilm() {
+  const hero = $(".cinematic-hero");
+  const slides = $$(".hero-slide");
+  const steps = $$(".scene-step");
+  const toggle = $("#filmToggle");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let currentScene = 0;
+  let playing = !reducedMotion;
+  let timer;
+  let elapsedSeconds = 0;
+
+  function updateScene(nextScene) {
+    currentScene = (nextScene + slides.length) % slides.length;
+    slides.forEach((slide, index) => slide.classList.toggle("is-active", index === currentScene));
+    steps.forEach((step, index) => {
+      step.classList.remove("is-active");
+      if (index === currentScene) requestAnimationFrame(() => step.classList.add("is-active"));
+    });
+    setText("#sceneNumber", `SCENE ${String(currentScene + 1).padStart(2, "0")}`);
+  }
+
+  function scheduleNext() {
+    clearInterval(timer);
+    if (!playing) return;
+    timer = setInterval(() => updateScene(currentScene + 1), 6000);
+  }
+
+  function updatePlayState() {
+    hero.classList.toggle("is-paused", !playing);
+    toggle.classList.toggle("is-paused", !playing);
+    toggle.setAttribute("aria-label", playing ? "暂停影片" : "继续播放影片");
+    setText("#filmToggleLabel", playing ? "PAUSE FILM" : "PLAY FILM");
+    scheduleNext();
+  }
+
+  toggle.addEventListener("click", () => {
+    playing = !playing;
+    updatePlayState();
+  });
+
+  steps.forEach((step) => {
+    step.addEventListener("click", () => {
+      updateScene(Number(step.dataset.sceneTarget));
+      scheduleNext();
+    });
+  });
+
+  hero.addEventListener("pointermove", (event) => {
+    const x = event.clientX / window.innerWidth - 0.5;
+    const y = event.clientY / window.innerHeight - 0.5;
+    hero.style.setProperty("--mx", x.toFixed(3));
+    hero.style.setProperty("--my", y.toFixed(3));
+  });
+
+  setInterval(() => {
+    if (!playing) return;
+    elapsedSeconds += 1;
+    const minutes = Math.floor(elapsedSeconds / 60);
+    const seconds = elapsedSeconds % 60;
+    setText("#timecode", `00:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`);
+  }, 1000);
+
+  updateScene(0);
+  updatePlayState();
+}
+
+function setupReveals() {
+  const sections = $$(".reveal-section");
+  if (!("IntersectionObserver" in window)) {
+    sections.forEach((section) => section.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+function setupInteractions() {
+  $("#heroActions").addEventListener("click", async (event) => {
+    const link = event.target.closest("[data-copy-email]");
+    if (!link) return;
+    event.preventDefault();
+    try {
+      await copyToClipboard(link.dataset.copyEmail);
+      const label = link.textContent;
+      link.textContent = "EMAIL COPIED";
+      setTimeout(() => { link.textContent = label; }, 1500);
+    } catch {
+      window.prompt("复制邮箱：", link.dataset.copyEmail);
+    }
+  });
+
+  $("#themeToggle").addEventListener("click", () => {
+    const root = document.documentElement;
+    const soft = root.dataset.lights !== "soft";
+    root.dataset.lights = soft ? "soft" : "";
+    $("#themeToggle").setAttribute("aria-pressed", String(soft));
+  });
+
+  window.addEventListener("scroll", () => {
+    $(".site-header").classList.toggle("is-scrolled", window.scrollY > 48);
+  }, { passive: true });
+}
+
+renderProfile();
+renderPosts();
+setupFilm();
+setupReveals();
+setupInteractions();

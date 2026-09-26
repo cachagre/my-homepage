@@ -3,86 +3,188 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>个人主页</title>
-    <meta
-      name="description"
-      content="个人简介、联系方式和项目展示。"
+    <meta name="theme-color" content="#08100d" />
+    <title>玩具拒玩 | 个人主页</title>
+    <meta name="description" content="玩具拒玩的个人主页、学习记录与联系方式。" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308100d'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23b8d67b' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23e7ff91'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./cinematic.css" />
   </head>
   <body>
+    <div class="film-grain" aria-hidden="true"></div>
+
     <header class="site-header">
       <a class="brand" href="#home" aria-label="回到首页">
-        <img id="avatar" class="brand-avatar" src="" alt="" />
-        <span id="brandName">Your Name</span>
+        <span class="record-dot" aria-hidden="true"></span>
+        <span id="brandName">玩具拒玩</span>
+        <span class="brand-cut">CUT 01</span>
       </a>
 
       <nav class="nav-links" aria-label="主导航">
         <a href="#about">简介</a>
+        <a href="#reel">画面</a>
         <a href="#posts">文章</a>
         <a href="#contact">联系</a>
-        <a href="#guestbook">留言</a>
       </nav>
 
-      <button id="themeToggle" class="icon-button" type="button" aria-label="切换主题">
-        ◐
+      <button id="themeToggle" class="light-button" type="button" aria-label="切换光影模式">
+        <span aria-hidden="true">◐</span>
+        <span>LIGHT</span>
       </button>
     </header>
 
     <main id="home">
-      <section class="hero">
+      <section class="cinematic-hero" aria-label="若叶睦主题影片首屏">
+        <div class="hero-slides" aria-hidden="true">
+          <figure class="hero-slide is-active" data-scene="0">
+            <img src="./assets/mutsumi-seaside.png" alt="" />
+          </figure>
+          <figure class="hero-slide" data-scene="1">
+            <img src="./assets/mutsumi-water.png" alt="" />
+          </figure>
+          <figure class="hero-slide" data-scene="2">
+            <img src="./assets/mutsumi-eye.png" alt="" />
+          </figure>
+        </div>
+        <div class="hero-vignette" aria-hidden="true"></div>
+
+        <div class="frame-corners" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="hero-topline">
+          <span id="sceneNumber">SCENE 01</span>
+          <span>16 : 9 / DIGITAL FILM</span>
+          <span class="timecode" id="timecode">00:00:00</span>
+        </div>
+
         <div class="hero-copy">
-          <p class="eyebrow">Personal GitHub Pages</p>
-          <h1 id="heroTitle">把学习和项目放在一个安静的主页里。</h1>
-          <p id="heroSubtitle" class="hero-subtitle"></p>
-          <div id="heroActions" class="hero-actions"></div>
+          <p class="eyebrow">A quiet film by Toyer</p>
+          <h1>
+            <span>WAKABA</span>
+            <span class="title-offset">MUTSUMI</span>
+          </h1>
+          <div class="hero-intro">
+            <p id="heroTitle">每天清晨有多少双眼睛睁开，就有多少个世界</p>
+            <p id="heroSubtitle" class="hero-subtitle"></p>
+          </div>
         </div>
 
-        <aside class="status-panel" aria-label="当前状态">
-          <div>
-            <span class="metric-label">正在学习</span>
-            <strong id="currentFocus"></strong>
-          </div>
-          <div>
-            <span class="metric-label">最近阅读</span>
-            <strong id="recentBook"></strong>
-          </div>
-          <div>
-            <span class="metric-label">主页定位</span>
-            <strong id="sitePosition"></strong>
-          </div>
-        </aside>
-      </section>
+        <p class="vertical-title" aria-hidden="true">若葉 睦 · 夢の断片</p>
 
-      <section id="about" class="section-band">
-        <div class="section-heading">
-          <p class="eyebrow">About</p>
-          <h2>简介</h2>
+        <div class="hero-controls">
+          <button id="filmToggle" class="play-button" type="button" aria-label="暂停影片">
+            <span class="play-icon" aria-hidden="true"></span>
+            <span id="filmToggleLabel">PAUSE FILM</span>
+          </button>
+          <div class="scene-progress" aria-label="影片进度">
+            <button class="scene-step is-active" type="button" data-scene-target="0" aria-label="播放镜头一"></button>
+            <button class="scene-step" type="button" data-scene-target="1" aria-label="播放镜头二"></button>
+            <button class="scene-step" type="button" data-scene-target="2" aria-label="播放镜头三"></button>
+          </div>
+          <a class="scroll-cue" href="#about">SCROLL TO BEGIN <span aria-hidden="true">↓</span></a>
         </div>
-        <div id="aboutText" class="prose"></div>
-        <div id="skillList" class="tag-row" aria-label="技能标签"></div>
       </section>
 
-      <section id="posts" class="section-band">
+      <div class="rolling-credit" aria-hidden="true">
+        <div>
+          <span>PERSONAL ARCHIVE</span><i></i>
+          <span>WAKABA MUTSUMI</span><i></i>
+          <span>STUDY / LIFE / MEMORY</span><i></i>
+          <span>PERSONAL ARCHIVE</span><i></i>
+          <span>WAKABA MUTSUMI</span><i></i>
+          <span>STUDY / LIFE / MEMORY</span>
+        </div>
+      </div>
+
+      <section id="about" class="story-section about-section reveal-section">
+        <div class="section-index">
+          <span>CHAPTER 01</span>
+          <span>THE PROTAGONIST</span>
+        </div>
+
+        <div class="portrait-frame">
+          <img src="./assets/mutsumi-eye.png" alt="若叶睦绿色眼眸特写" />
+          <span class="frame-label">FRAME 024 / MEMORY</span>
+        </div>
+
+        <div class="about-copy">
+          <p class="eyebrow">About the dreamer</p>
+          <h2>在安静的画面里，<br />记录正在发生的自己。</h2>
+          <div id="aboutText" class="prose"></div>
+          <div class="profile-facts">
+            <div><span>正在学习</span><strong id="currentFocus"></strong></div>
+            <div><span>最近阅读</span><strong id="recentBook"></strong></div>
+            <div><span>主页定位</span><strong id="sitePosition"></strong></div>
+          </div>
+          <div id="skillList" class="tag-row" aria-label="个人标签"></div>
+        </div>
+      </section>
+
+      <section id="reel" class="reel-section reveal-section">
         <div class="section-heading">
-          <p class="eyebrow">Blog</p>
-          <h2>文章</h2>
+          <div>
+            <p class="eyebrow">Selected frames</p>
+            <h2>散落的镜头</h2>
+          </div>
+          <p>一些没有对白的时刻，被光线与风留在了画面里。</p>
+        </div>
+
+        <div class="film-strip">
+          <article class="film-card film-card-wide">
+            <div class="perforations" aria-hidden="true"></div>
+            <img src="./assets/mutsumi-water.png" alt="水下伸出手的若叶睦" loading="lazy" />
+            <div class="card-caption"><span>01</span><p>沉入蓝色以前</p><small>00:01:24</small></div>
+          </article>
+          <article class="film-card film-card-tall">
+            <div class="perforations" aria-hidden="true"></div>
+            <img src="./assets/mutsumi-rooftop.png" alt="天台上的若叶睦" loading="lazy" />
+            <div class="card-caption"><span>02</span><p>晴日，风经过走廊</p><small>00:03:17</small></div>
+          </article>
+          <article class="film-card film-card-portrait">
+            <div class="perforations" aria-hidden="true"></div>
+            <img src="./assets/mutsumi-frame.png" alt="手持画框微笑的若叶睦" loading="lazy" />
+            <div class="card-caption"><span>03</span><p>画框之外</p><small>00:05:42</small></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="posts" class="story-section notes-section reveal-section">
+        <div class="section-index">
+          <span>CHAPTER 02</span>
+          <span>THE ARCHIVE</span>
+        </div>
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">Notes & fragments</p>
+            <h2>片尾之前，<br />写下一点什么。</h2>
+          </div>
         </div>
         <div id="postList" class="post-list"></div>
       </section>
 
-      <section id="contact" class="section-band contact-band">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>联系方式</h2>
+      <section id="contact" class="contact-scene reveal-section">
+        <img src="./assets/mutsumi-seaside.png" alt="海边晚风中的若叶睦" loading="lazy" />
+        <div class="contact-shade" aria-hidden="true"></div>
+        <div class="contact-copy">
+          <p class="eyebrow">Final scene · Keep in touch</p>
+          <h2>故事未完，<br />下个镜头见。</h2>
+          <div id="heroActions" class="hero-actions"></div>
+          <div id="contactList" class="contact-list"></div>
         </div>
-        <div id="contactList" class="contact-list"></div>
+        <div class="contact-timecode" aria-hidden="true">END / 00:07:26</div>
       </section>
 
-      <section id="guestbook" class="section-band guestbook-band">
-        <div class="section-heading">
-          <p class="eyebrow">Guestbook</p>
-          <h2>留言板</h2>
+      <section id="guestbook" class="guestbook-section reveal-section">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">After credits</p>
+            <h2>留下你的片尾彩蛋</h2>
+          </div>
+          <p>留言由 GitHub Discussions 提供支持。</p>
         </div>
         <div class="comments-panel">
           <script
@@ -90,7 +192,7 @@
             repo="cachagre/my-homepage"
             issue-term="pathname"
             label="guestbook"
-            theme="preferred-color-scheme"
+            theme="github-dark"
             crossorigin="anonymous"
             async>
           </script>
@@ -98,6 +200,12 @@
       </section>
     </main>
 
-    <script src="./app.js?v=public-guestbook"></script>
+    <footer class="site-footer">
+      <span>© <span id="year"></span> 玩具拒玩</span>
+      <span>DIRECTED WITH QUIET LIGHT</span>
+      <a href="#home">BACK TO TOP ↑</a>
+    </footer>
+
+    <script src="./cinematic.js?v=cinematic-cut"></script>
   </body>
 </html>

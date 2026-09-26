@@ -12,7 +12,7 @@ const profile = {
     "记录自己",
     
   ],
-  skills: ["408 基础", "项目实践"],
+  skills: ["什么都不懂", "混吃等死","装可爱真可爱"],
   links: [
     { label: "GitHub", href: "https://github.com/cachagre", style: "primary" },
     { label: "Email", href: "#", style: "secondary", copyText: "toyer726@gmail.com" }
