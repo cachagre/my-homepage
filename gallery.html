@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070b0a" />
+    <title>若叶睦图库 | 玩具拒玩</title>
+    <meta name="description" content="若叶睦图片收藏与全屏滑动预览。" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308100d'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23b8d67b' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23e7ff91'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./gallery.css?v=1" />
+  </head>
+  <body>
+    <header class="gallery-header">
+      <a class="gallery-brand" href="./index.html">
+        <span aria-hidden="true"></span>
+        <strong>玩具拒玩</strong>
+        <small>IMAGE ARCHIVE</small>
+      </a>
+      <a class="back-link" href="./index.html">返回主页 <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="gallery-intro" aria-labelledby="galleryTitle">
+        <div>
+          <p>WAKABA MUTSUMI / IMAGE ARCHIVE</p>
+          <h1 id="galleryTitle">若叶睦图库</h1>
+        </div>
+        <p class="gallery-count"><strong id="imageCount">00</strong><span>FRAMES</span></p>
+      </section>
+
+      <section class="gallery-overview" aria-label="全部图片">
+        <div id="galleryGrid" class="gallery-grid"></div>
+      </section>
+    </main>
+
+    <footer class="gallery-footer">
+      <span>WAKABA MUTSUMI / ARCHIVE</span>
+      <a href="#galleryTitle">回到顶部 ↑</a>
+    </footer>
+
+    <dialog id="imageViewer" class="image-viewer" aria-label="图片浏览器">
+      <div class="viewer-shell">
+        <header class="viewer-header">
+          <span id="viewerCounter">01 / 12</span>
+          <button id="closeViewer" type="button" aria-label="关闭大图">关闭 ×</button>
+        </header>
+
+        <div id="viewerStage" class="viewer-stage">
+          <button id="previousImage" class="viewer-arrow viewer-arrow-left" type="button" aria-label="上一张">←</button>
+          <figure class="viewer-figure">
+            <img id="viewerImage" src="" alt="" />
+          </figure>
+          <button id="nextImage" class="viewer-arrow viewer-arrow-right" type="button" aria-label="下一张">→</button>
+        </div>
+
+        <div class="viewer-bottom">
+          <p>左右滑动或使用方向键切换</p>
+          <div id="viewerThumbnails" class="viewer-thumbnails" aria-label="图片缩略导航"></div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./gallery.js?v=1"></script>
+  </body>
+</html>
