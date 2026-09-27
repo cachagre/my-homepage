@@ -11,7 +11,8 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308100d'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23b8d67b' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23e7ff91'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="./cinematic.css?v=gallery-1" />
+    <link rel="stylesheet" href="./cinematic.css?v=gallery-2" />
+    <link rel="stylesheet" href="./gallery.css?v=2" />
   </head>
   <body class="intro-active">
     <div class="film-grain" aria-hidden="true"></div>
@@ -86,13 +87,13 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="#about">简介</a>
         <a href="#reel">画面</a>
-        <a href="./gallery.html">图库</a>
+        <a href="#gallery">图库</a>
         <a href="#posts">文章</a>
         <a href="#contact">联系</a>
       </nav>
 
       <div class="header-actions">
-        <a class="mobile-gallery-link" href="./gallery.html">图库</a>
+        <a class="mobile-gallery-link" href="#gallery">图库</a>
         <button id="themeToggle" class="light-button" type="button" aria-label="切换光影模式">
           <span aria-hidden="true">◐</span>
           <span>LIGHT</span>
@@ -272,7 +273,40 @@
           </script>
         </div>
       </section>
+
+      <section id="gallery" class="homepage-gallery reveal-section" aria-labelledby="homeGalleryTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Wakaba Mutsumi / Image archive</p>
+            <h2 id="homeGalleryTitle">若叶睦图库</h2>
+          </div>
+          <p class="homepage-gallery-count"><strong id="imageCount">00</strong> FRAMES</p>
+        </div>
+        <div id="galleryGrid" class="gallery-grid" aria-label="全部图片"></div>
+      </section>
     </main>
+
+    <dialog id="imageViewer" class="image-viewer" aria-label="图片浏览器">
+      <div class="viewer-shell">
+        <header class="viewer-header">
+          <span id="viewerCounter">01 / 12</span>
+          <button id="closeViewer" type="button" aria-label="关闭大图">关闭 ×</button>
+        </header>
+
+        <div id="viewerStage" class="viewer-stage">
+          <button id="previousImage" class="viewer-arrow viewer-arrow-left" type="button" aria-label="上一张">←</button>
+          <figure class="viewer-figure">
+            <img id="viewerImage" src="" alt="" />
+          </figure>
+          <button id="nextImage" class="viewer-arrow viewer-arrow-right" type="button" aria-label="下一张">→</button>
+        </div>
+
+        <div class="viewer-bottom">
+          <p>左右滑动或使用方向键切换</p>
+          <div id="viewerThumbnails" class="viewer-thumbnails" aria-label="图片缩略导航"></div>
+        </div>
+      </div>
+    </dialog>
 
     <footer class="site-footer">
       <span>© <span id="year"></span> 玩具拒玩</span>
@@ -284,5 +318,6 @@
     </footer>
 
     <script src="./cinematic.js?v=dialogue-2"></script>
+    <script src="./gallery.js?v=2"></script>
   </body>
 </html>
